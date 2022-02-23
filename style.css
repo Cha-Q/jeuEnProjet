@@ -1,0 +1,36 @@
+meter {
+    height: 50px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+}
+
+button {
+    margin: 10px;
+}
+
+i {
+    transform: scale(1.6);
+}
+
+section {
+    display: flex;
+    justify-content: center;
+}
+
+.playerDivs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
