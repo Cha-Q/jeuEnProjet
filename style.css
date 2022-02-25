@@ -1,11 +1,25 @@
-meter {
-    height: 50px;
+.progress {
+    /* background-color: green; */
+    width: 400px;
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.endClass {
+    height: 100vh;
+    background-color: red;
+    animation: strobe 0.1s infinite;
+}
+
+.barText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: green; */
 }
 
 body>div {
@@ -33,4 +47,13 @@ section {
     flex-direction: column;
     align-items: center;
     margin: 10px;
+}
+
+@keyframes strobe {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: red;
+    }
 }
