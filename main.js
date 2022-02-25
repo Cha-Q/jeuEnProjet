@@ -1,17 +1,19 @@
 const app = Vue.createApp({
     data() {
         return {
-            player: 1,
-            bot: 1,
+            player: 100,
+            bot: 100,
             currentRound: 1,
             winner: '',
-            playerAttack: 0.05,
-            botAttack: 0.08,
-            critRate: 2.75,
+            playerAttack: 5,
+            botAttack: 5,
+            critRate: 2.5,
             end: false,
 
-            rgbPlayer: 'green',
-            rgbBot: 'green',
+            rgbPlayer: '',
+            rgbBot: '',
+            imgBot: 'https://i.gifer.com/DD0.gif',
+            imgPlayer: 'https://i.gifer.com/tGR.gif',
         };
     },
     methods: {
@@ -43,49 +45,68 @@ const app = Vue.createApp({
             if (this.player <= 0 || this.bot <= 0) return;
 
             if (this.player > 90) {
-                this.player += (1 - this.player);
+                this.player += (100 - this.player);
             } else {
-                this.player += 0.10;
+                this.player += 10;
             }
-            this.botAttack += 0.05;
+            this.botAttack += 5;
             this.currentRound++;
         },
         giveUp() {
+            if (this.player <= 0 || this.bot <= 0) return;
+
             this.end = true;
             this.player = 0;
         },
+        restart() {
+            location.reload();
+        },
+
     },
     watch: {
         player(value) {
-            if (value >= 0.5) {
-                this.rbgPlayer = 'green';
-            } else if (value >= 0.25 && value < 0.5) {
-                this.rbgPlayer = 'yellow';
-                console.log('this.rbgPlayer : ', this.rbgPlayer)
-            } else {
-                this.rbgPlayer = 'red';
+            if (value <= 0) {
+                this.imgPlayer = "https://i.gifer.com/7v8P.gif";
+                this.imgBot = "https://i.gifer.com/ZIb4.gif";
             }
         },
         bot(value) {
-            if (value >= 0.5) {
-                this.rbgBot = 'yellow';
-            } else if ((value >= 0.25) && (value < 0.5)) {
-                this.rbgBot = 'yellow';
-            } else {
-                this.rbgBot = 'yellow';
+            if (value <= 0) {
+                this.imgBot = "https://i.gifer.com/7v8P.gif";
+                this.imgPlayer = "https://i.gifer.com/78FK.gif"; //https://i.gifer.com/ZIb4.gif
             }
-        },
-    },
+        }
+    }, //t'as essayé des give up avec les GIF
+
     computed: {
+        styleBarPlayer() {
+            if (this.player >= 50) {
+                console.log(this.player);
+                this.rbgPlayer = 'green';
+            } else if ((this.player >= 25) && (this.player < 50)) {
+                this.rbgPlayer = 'yellow';
+            } else {
+                this.rbgPlayer = 'red';
+            }
+            return {
+                width: this.player + '%',
+                backgroundColor: this.rbgPlayer,
+            };
+        },
+
         styleBarBot() {
-            if (this.bot >= 0.5) {
+            if (this.bot >= 50) {
+                console.log(this.bot);
                 this.rbgBot = 'green';
-            } else if ((this.player >= 0.25) && (this.player < 0.5)) {
+            } else if ((this.bot >= 25) && (this.bot < 50)) {
                 this.rbgBot = 'yellow';
             } else {
                 this.rbgBot = 'red';
             }
-            return { backgroundColor: this.rbgBot };
+            return {
+                width: this.bot + '%',
+                backgroundColor: this.rbgBot
+            };
         },
         changeClass() {
             if (this.end === true) {
